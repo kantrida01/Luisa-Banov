@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luisa Banov – Künstlerin</title>
+  <meta name="description" content="Luisa Banov – Künstlerin. Arbeiten, Projekte und Kontakt.">
+
+  <style>
+    :root {
+      --ink: #151515;
+      --ink2: #252525;
+      --paper: #f6f0e7;
+      --paper2: #fbf7f0;
+      --warm: #c7a46b;
+      --line: rgba(21,21,21,.16);
+      --muted: #69645d;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--paper2);
+      color: var(--ink);
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    .hero {
+      position: relative;
+      min-height: 78vh;
+      overflow: hidden;
+      background-image:
+        linear-gradient(90deg, rgba(10,10,10,.72) 0%, rgba(10,10,10,.36) 44%, rgba(10,10,10,.04) 100%),
+        url("images/hero.jpg?v=1");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+      padding: 26px 7vw;
+      color: white;
+    }
+
+    .logo {
+      flex: 0 0 auto;
+      color: var(--warm);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .logo-circle {
+      width: 76px;
+      height: 76px;
+      border: 1.5px solid var(--warm);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, serif;
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    .logo small {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 4px;
+      opacity: .9;
+      margin-top: 3px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 16px 34px;
+      padding-top: 18px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .links a,
+    .links a:first-child {
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 8px;
+      transition: color .2s ease, border-color .2s ease, opacity .2s ease;
+    }
+
+    .links a.active,
+    .links a.nav-current,
+    .links a[aria-current="page"] {
+      color: var(--warm) !important;
+      border-bottom-color: var(--warm) !important;
+      opacity: 1 !important;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 720px;
+      padding: 210px 7vw 96px;
+      color: white;
+    }
+
+    .kicker {
+      color: #e7c990;
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(48px, 7vw, 92px);
+      line-height: .96;
+      font-weight: 500;
+      margin: 0 0 24px;
+      letter-spacing: .5px;
+    }
+
+    .hero-text {
+      max-width: 560px;
+      color: rgba(255,255,255,.84);
+      font-size: 18px;
+      line-height: 1.75;
+      margin: 0 0 28px;
+    }
+
+    .gold-line {
+      width: 90px;
+      height: 2px;
+      background: var(--warm);
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      background: linear-gradient(180deg, #fffaf2, #efe2cf);
+      border-top: 1px solid rgba(199,164,107,.38);
+      border-bottom: 1px solid rgba(199,164,107,.38);
+    }
+
+    .fact {
+      min-width: 0;
+      padding: 28px 18px;
+      text-align: center;
+      border-right: 1px solid rgba(199,164,107,.30);
+    }
+
+    .fact:last-child { border-right: 0; }
+
+    .fact span {
+      display: block;
+      color: var(--ink);
+      font-family: Georgia, serif;
+      font-size: 24px;
+      margin-bottom: 7px;
+    }
+
+    .fact small {
+      display: block;
+      color: #756e63;
+      font-size: 12px;
+      letter-spacing: .8px;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .section {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 78px 7vw;
+    }
+
+    .section h2 {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: .3px;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+
+    .section p {
+      max-width: 920px;
+      margin: 0 0 26px;
+      font-size: 18px;
+      line-height: 1.82;
+      color: var(--muted);
+    }
+
+    .lead {
+      font-size: 20px !important;
+      color: #47423d !important;
+    }
+
+    h3 {
+      margin: 0 0 14px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      line-height: 1.35;
+      text-transform: uppercase;
+      color: var(--ink2);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .work-card {
+      min-width: 0;
+      background: linear-gradient(180deg, #fffdfa 0%, #f3eadc 100%);
+      border: 1px solid rgba(199,164,107,.34);
+      border-radius: 18px;
+      padding: 24px 22px;
+      box-shadow: 0 16px 34px rgba(20,20,20,.07);
+    }
+
+    .work-card p {
+      font-size: 15.5px;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .image-feature {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .image-feature img {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 24px 54px rgba(20,20,20,.16);
+      cursor: pointer;
+    }
+
+    .note-box {
+      background: var(--ink);
+      color: white;
+      border-radius: 18px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .note-box h3 { color: var(--warm); }
+    .note-box p { color: rgba(255,255,255,.78); font-size: 16px; line-height: 1.75; }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 22px;
+      padding: 20px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline-item strong {
+      color: var(--ink);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .contact {
+      width: 100%;
+      background: var(--ink);
+      color: white;
+      padding: 72px 7vw;
+    }
+
+    .contact-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .contact h2 {
+      font-family: Georgia, serif;
+      font-size: 44px;
+      font-weight: 500;
+      margin: 0 0 16px;
+    }
+
+    .contact p {
+      color: rgba(255,255,255,.78);
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    .contact a { color: white; }
+
+    .impressum {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding-top: 30px;
+      color: rgba(255,255,255,.62);
+      font-size: 13px;
+      line-height: 1.6;
+      border-top: 1px solid rgba(255,255,255,.14);
+      margin-top: 40px;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 38px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    #arbeiten, #ueber-luisa, #projekte, #kontakt { scroll-margin-top: 105px; }
+
+    @media (max-width: 980px) {
+      .facts, .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .fact:nth-child(2) { border-right: 0; }
+      .image-feature, .contact-inner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        min-height: 68vh;
+        background-position: center center;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 6vw;
+      }
+
+      .logo-circle {
+        width: 58px;
+        height: 58px;
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+
+      .logo { font-size: 12px; letter-spacing: 2px; }
+      .logo small { font-size: 8px; letter-spacing: 3px; }
+
+      .links {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px 12px;
+        padding-top: 0;
+        font-size: 10px;
+        letter-spacing: 1px;
+        line-height: 1.35;
+      }
+
+      .links a, .links a:first-child { padding-bottom: 4px; }
+
+      .hero-content {
+        max-width: 100%;
+        padding: 190px 6vw 54px;
+      }
+
+      .kicker {
+        font-size: 12px;
+        letter-spacing: 4px;
+        line-height: 1.45;
+        margin-bottom: 14px;
+      }
+
+      .hero-text { font-size: 16px; line-height: 1.65; }
+
+      .facts, .work-grid { grid-template-columns: 1fr; }
+
+      .fact {
+        border-right: 0;
+        border-bottom: 1px solid rgba(199,164,107,.30);
+        padding: 21px 10px;
+      }
+      .fact:last-child { border-bottom: 0; }
+      .fact span { font-size: 21px; }
+      .fact small { font-size: 10.5px; }
+
+      .section { padding: 48px 6vw; }
+      .section h2 { font-size: 29px; margin-bottom: 18px; }
+      .section p, .lead { font-size: 16px !important; line-height: 1.68; }
+
+      .image-feature img { min-height: 260px; border-radius: 14px; }
+      .note-box { border-radius: 14px; padding: 22px; }
+
+      .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+
+      .contact { padding: 52px 6vw 64px; }
+      .contact h2 { font-size: 30px; }
+      .contact p { font-size: 15.5px; }
+
+      #arbeiten, #ueber-luisa, #projekte, #kontakt { scroll-margin-top: 145px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero" id="start">
+    <nav class="nav" aria-label="Hauptnavigation">
+      <div class="logo">
+        <div class="logo-circle">LB</div>
+        <div>Luisa Banov</div>
+        <small>Künstlerin</small>
+      </div>
+
+      <div class="links">
+        <a href="#arbeiten" class="active">Arbeiten</a>
+        <a href="#ueber-luisa">Über Luisa</a>
+        <a href="#projekte">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <div class="kicker">Malerei · Zeichnung · Kunstprojekte</div>
+      <h1>Luisa Banov</h1>
+      <p class="hero-text">Künstlerische Arbeiten zwischen Linie, Fläche und Raum. Eine ruhige, reduzierte Website als erste Grundlage für Portfolio, Projekte und Kontakt.</p>
+      <div class="gold-line"></div>
+    </div>
+  </header>
+
+  <section class="facts" aria-label="Kurzinfos">
+    <div class="fact"><span>Atelier</span><small>Arbeiten im Prozess</small></div>
+    <div class="fact"><span>Kunst</span><small>Malerei &amp; Zeichnung</small></div>
+    <div class="fact"><span>Projekte</span><small>Ausstellungen &amp; Kurse</small></div>
+    <div class="fact"><span>Kontakt</span><small>Anfragen direkt</small></div>
+  </section>
+
+  <section class="section" id="arbeiten">
+    <h2>Arbeiten</h2>
+    <p class="lead">Diese erste Version ist bewusst ruhig gehalten. Sobald weitere Fotos der Kunstwerke vorliegen, können sie hier als Galerie eingefügt werden.</p>
+
+    <div class="work-grid">
+      <div class="work-card">
+        <h3>Malerei</h3>
+        <p>Freie Arbeiten, Serien und großformatige Kompositionen. Bildtitel, Technik und Jahr können später direkt ergänzt werden.</p>
+      </div>
+      <div class="work-card">
+        <h3>Zeichnung</h3>
+        <p>Linien, Skizzen, Studien und grafische Arbeiten. Dieser Bereich kann später eine eigene Bildergalerie bekommen.</p>
+      </div>
+      <div class="work-card">
+        <h3>Raum &amp; Prozess</h3>
+        <p>Arbeiten im Atelier, Entstehungsprozesse und künstlerische Projekte können hier dokumentiert werden.</p>
+      </div>
+    </div>
+
+    <div class="image-feature">
+      <img src="images/hero.jpg?v=1" alt="Luisa Banov im Atelier" class="lightbox-img">
+      <div class="note-box">
+        <h3>Hero-Bild</h3>
+        <p>Das schwarz-weiße Atelierfoto ist als starkes Startbild eingesetzt. Es wirkt persönlich, künstlerisch und nicht zu werblich.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ueber-luisa">
+    <h2>Über Luisa</h2>
+    <p>Luisa Banov arbeitet künstlerisch mit Fläche, Linie und Material. Ihre Arbeiten entstehen aus Beobachtung, Intuition und dem konzentrierten Prozess im Atelier.</p>
+    <p>Dieser Text ist ein erster Platzhalter. Er kann später persönlicher formuliert werden – zum Beispiel mit Ausbildung, künstlerischem Schwerpunkt, Ausstellungen, Kursen oder einem kurzen Lebenslauf.</p>
+  </section>
+
+  <section class="section" id="projekte">
+    <h2>Projekte</h2>
+    <p class="lead">Hier können Ausstellungen, Kunstkurse, Workshops oder laufende Projekte eingetragen werden.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <strong>Ausstellungen</strong>
+        <p>Ausstellungsorte, Jahre und Titel können hier ergänzt werden.</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Kurse</strong>
+        <p>Workshops, VHS-Kurse oder künstlerische Vermittlung können hier beschrieben werden.</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Aktuell</strong>
+        <p>Neue Serien, offene Ateliers oder kommende Termine können später einfach eingetragen werden.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="contact-inner">
+      <div>
+        <h2>Kontakt</h2>
+        <p>Für Anfragen zu Arbeiten, Projekten, Ausstellungen oder Kursen.</p>
+      </div>
+      <div>
+        <p><strong>Name:</strong> Luisa Banov</p>
+        <p><strong>E-Mail:</strong> bitte ergänzen</p>
+        <p><strong>Ort:</strong> bitte ergänzen</p>
+      </div>
+    </div>
+
+    <div class="impressum">
+      <strong>Impressum</strong><br>
+      Luisa Banov · Adresse bitte ergänzen · E-Mail bitte ergänzen<br>
+      Hinweis: Für eine öffentlich erreichbare Website in Deutschland sollte das Impressum vor Veröffentlichung vollständig ergänzt werden.
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <span class="lightbox-close">×</span>
+    <img id="lightbox-img" alt="Vergrößertes Bild">
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    document.querySelectorAll('.lightbox-img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightbox.setAttribute('aria-hidden', 'false');
+        lightboxImg.src = img.src;
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      lightbox.setAttribute('aria-hidden', 'true');
+    }
+
+    document.querySelector('.lightbox-close').addEventListener('click', (event) => {
+      event.stopPropagation();
+      closeLightbox();
+    });
+
+    lightbox.addEventListener('click', closeLightbox);
+  </script>
+
+  <script>
+    /* Stabile aktive Menü-Markierung */
+    (function () {
+      const navLinks = Array.from(document.querySelectorAll('.links a[href^="#"]'));
+      const sections = navLinks
+        .map(link => document.getElementById(link.getAttribute('href').slice(1)))
+        .filter(Boolean);
+
+      if (!navLinks.length || !sections.length) return;
+
+      let lockedUntil = 0;
+      let lastManualId = null;
+
+      function setActive(id) {
+        navLinks.forEach(link => {
+          const linkId = link.getAttribute('href').slice(1);
+          const active = linkId === id;
+          link.classList.toggle('active', active);
+          link.classList.toggle('nav-current', active);
+          if (active) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      function headerOffset() {
+        const nav = document.querySelector('.nav');
+        const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+        return Math.ceil(navHeight + 18);
+      }
+
+      function scrollToSection(id) {
+        const target = document.getElementById(id);
+        if (!target) return;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerOffset();
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      }
+
+      function currentSectionByScroll() {
+        const marker = window.scrollY + headerOffset() + 80;
+        let current = sections[0].id;
+        for (const section of sections) {
+          if (section.offsetTop <= marker) current = section.id;
+        }
+        if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 12)) {
+          const contact = document.getElementById('kontakt');
+          if (contact) current = 'kontakt';
+        }
+        return current;
+      }
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+          const id = this.getAttribute('href').slice(1);
+          if (!document.getElementById(id)) return;
+          event.preventDefault();
+          lastManualId = id;
+          lockedUntil = Date.now() + 1800;
+          setActive(id);
+          scrollToSection(id);
+          history.replaceState(null, '', '#' + id);
+          window.setTimeout(() => setActive(lastManualId || id), 450);
+        });
+      });
+
+      let ticking = false;
+      window.addEventListener('scroll', function () {
+        if (Date.now() < lockedUntil) return;
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            setActive(currentSectionByScroll());
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', function () {
+        if (Date.now() >= lockedUntil) setActive(currentSectionByScroll());
+      });
+
+      const startHash = location.hash.replace('#', '');
+      if (document.getElementById(startHash)) setActive(startHash);
+      else setActive(currentSectionByScroll());
+    })();
+  </script>
+</body>
+</html>
