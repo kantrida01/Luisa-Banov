@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luisa Banov – Künstlerin</title>
-  <meta name="description" content="Luisa Banov – Künstlerin. Arbeiten, Projekte, Kurse und Kontakt.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luisa Banov</title>
+  <meta name="description" content="Luisa Banov – Malerei, Zeichnung und künstlerische Arbeiten." />
 
   <style>
     :root {
-      --paper: #f8f6f1;
-      --ink: #171717;
-      --muted: #77716a;
-      --line: rgba(23, 23, 23, .14);
-      --accent: #9b7b4a;
-      --white: #ffffff;
+      --bg: #f6f2ec;
+      --text: #161616;
+      --muted: #6e6a64;
+      --line: rgba(255,255,255,.72);
+      --white: #fff;
+      --panel: rgba(12,12,12,.92);
+      --max: 1080px;
     }
 
-    *, *::before, *::after {
+    * {
       box-sizing: border-box;
     }
 
@@ -26,12 +27,9 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 15px;
-      line-height: 1.55;
-      color: var(--ink);
-      background: var(--paper);
+      color: var(--text);
+      background: var(--bg);
     }
 
     a {
@@ -40,394 +38,494 @@
     }
 
     img {
-      display: block;
       max-width: 100%;
+      display: block;
     }
 
-    .page {
-      display: grid;
-      grid-template-columns: minmax(230px, 30vw) minmax(0, 1fr);
-      min-height: 100vh;
-    }
+    /* =========================
+       MOBILE HERO START
+       ========================= */
 
-    .sidebar {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      padding: 42px 38px;
-      border-right: 1px solid var(--line);
-      background: rgba(248, 246, 241, .96);
-      overflow-y: auto;
-    }
-
-    .brand {
-      display: inline-block;
-      margin-bottom: 34px;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-
-    .subtitle {
-      margin: -24px 0 34px;
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .nav-list {
-      display: grid;
-      gap: 9px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .nav-list a {
-      display: inline-block;
-      padding: 2px 0;
-      color: var(--ink);
-      border-bottom: 1px solid transparent;
-    }
-
-    .nav-list a:hover,
-    .nav-list a:focus-visible {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-      outline: none;
-    }
-
-    .main {
-      padding: 42px clamp(24px, 5vw, 72px) 72px;
-    }
-
-    .landing {
-      min-height: calc(100vh - 84px);
-      display: grid;
-      align-content: end;
-      gap: 24px;
-    }
-
-    .image-wrap {
-      width: min(100%, 860px);
-      background: var(--white);
-      border: 1px solid var(--line);
-      padding: 14px;
-    }
-
-    .image-wrap img {
+    .hero {
+      position: relative;
+      min-height: 100svh;
       width: 100%;
-      max-height: 68vh;
-      object-fit: cover;
-      object-position: center;
-      background: #e9e2d8;
+      overflow: hidden;
+      background: #111;
+      isolation: isolate;
     }
 
-    .image-placeholder {
-      min-height: 320px;
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 30%;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(255,255,255,.03), transparent 35%),
+        linear-gradient(to bottom, rgba(0,0,0,.18) 0%, rgba(0,0,0,.05) 35%, rgba(0,0,0,.58) 100%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 22px;
+      color: var(--white);
+      mix-blend-mode: normal;
+    }
+
+    .brand-small {
+      font-size: 13px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      opacity: .86;
+    }
+
+    .menu-button {
+      width: 48px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      padding: 0;
       display: grid;
       place-items: center;
-      color: var(--muted);
-      background: #e9e2d8;
-      border: 1px dashed var(--line);
+      cursor: pointer;
+    }
+
+    .menu-lines {
+      width: 32px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .menu-lines span {
+      display: block;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.35);
+      transition: transform .25s ease, opacity .2s ease;
+    }
+
+    body.menu-open .menu-lines span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    body.menu-open .menu-lines span:nth-child(2) {
+      opacity: 0;
+    }
+
+    body.menu-open .menu-lines span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .hero-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 14svh;
+      padding: 0 22px;
       text-align: center;
-      padding: 24px;
+      color: var(--white);
     }
 
-    h1 {
-      margin: 0 0 4px;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(42px, 7vw, 88px);
-      font-weight: 400;
-      line-height: .95;
-      letter-spacing: -.03em;
-    }
-
-    .intro {
-      max-width: 680px;
+    .hero-title h1 {
       margin: 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.75;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-size: clamp(54px, 17vw, 124px);
+      line-height: .92;
+      letter-spacing: .015em;
+      text-shadow: 0 8px 28px rgba(0,0,0,.38);
+    }
+
+    .ornament {
+      margin: 24px auto 0;
+      width: min(240px, 54vw);
+      height: 18px;
+      position: relative;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 16px);
+      height: 1px;
+      background: var(--line);
+    }
+
+    .ornament::before {
+      left: 0;
+    }
+
+    .ornament::after {
+      right: 0;
+    }
+
+    .ornament span,
+    .ornament span::before,
+    .ornament span::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--white);
+      transform: translate(-50%, -50%);
+    }
+
+    .ornament span::before,
+    .ornament span::after {
+      content: "";
+      opacity: .55;
+      width: 4px;
+      height: 4px;
+    }
+
+    .ornament span::before {
+      transform: translate(-22px, -50%);
+    }
+
+    .ornament span::after {
+      transform: translate(18px, -50%);
+    }
+
+    .scroll-note {
+      position: absolute;
+      left: 22px;
+      bottom: 22px;
+      color: rgba(255,255,255,.74);
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       MENU OVERLAY
+       ========================= */
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      background: var(--panel);
+      color: var(--white);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity .25s ease, visibility .25s ease, transform .25s ease;
+      padding: 88px 28px 42px;
+    }
+
+    body.menu-open .menu-overlay {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .menu-overlay nav {
+      display: grid;
+      gap: 22px;
+      text-align: center;
+    }
+
+    .menu-overlay a {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 10vw, 76px);
+      line-height: 1;
+      font-weight: 400;
+      opacity: .92;
+    }
+
+    .menu-overlay a:hover {
+      opacity: 1;
+    }
+
+    .menu-sub {
+      margin-top: 34px;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.62);
+    }
+
+    /* =========================
+       CONTENT BELOW HERO
+       ========================= */
+
+    main.content {
+      background: var(--bg);
     }
 
     section {
-      max-width: 900px;
-      padding: 86px 0 0;
-      scroll-margin-top: 24px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 72px 22px;
     }
 
-    section h2 {
+    section + section {
+      border-top: 1px solid rgba(0,0,0,.08);
+    }
+
+    h2 {
       margin: 0 0 24px;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(30px, 4vw, 52px);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 8vw, 68px);
       font-weight: 400;
-      line-height: 1;
+      letter-spacing: .01em;
     }
 
-    section p {
+    p {
       max-width: 720px;
       margin: 0 0 18px;
       color: var(--muted);
-      font-size: 17px;
-      line-height: 1.78;
+      font-size: 18px;
+      line-height: 1.65;
     }
 
     .work-list {
       display: grid;
-      gap: 0;
-      margin: 28px 0 0;
-      border-top: 1px solid var(--line);
+      gap: 14px;
+      margin-top: 34px;
     }
 
     .work-item {
+      border-top: 1px solid rgba(0,0,0,.14);
+      padding: 18px 0;
       display: grid;
-      grid-template-columns: minmax(130px, 190px) minmax(0, 1fr);
-      gap: 22px;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--line);
+      gap: 6px;
     }
 
     .work-item strong {
-      font-weight: 600;
-      letter-spacing: .02em;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-size: 28px;
     }
 
     .work-item span {
       color: var(--muted);
+      line-height: 1.5;
     }
 
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 28px;
+      gap: 22px;
+      margin-top: 36px;
     }
 
-    .gallery figure {
+    figure {
       margin: 0;
-      background: var(--white);
-      border: 1px solid var(--line);
-      padding: 10px;
+      background: #fff;
     }
 
-    .gallery img {
+    figure img {
       width: 100%;
-      aspect-ratio: 4 / 5;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
-      background: #e9e2d8;
+      filter: grayscale(100%);
     }
 
-    .gallery figcaption {
-      padding: 10px 2px 2px;
-      color: var(--muted);
+    figcaption {
+      padding: 12px 0 0;
       font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
     .contact-box {
-      display: grid;
-      gap: 8px;
-      margin-top: 26px;
-      padding: 24px 0 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .contact-box a {
-      color: var(--accent);
-      border-bottom: 1px solid rgba(155, 123, 74, .35);
-    }
-
-    .impressum {
-      max-width: 900px;
-      margin-top: 86px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      padding: 26px 0;
+      border-top: 1px solid rgba(0,0,0,.14);
+      border-bottom: 1px solid rgba(0,0,0,.14);
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.65;
+      line-height: 1.8;
     }
 
-    .impressum strong {
-      color: var(--ink);
+    footer {
+      padding: 44px 22px 70px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
 
-    @media (max-width: 820px) {
-      .page {
-        display: block;
+    @media (min-width: 760px) {
+      .topbar {
+        padding: 28px 38px;
       }
 
-      .sidebar {
-        position: relative;
-        height: auto;
-        padding: 28px 24px 22px;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .brand {
-        margin-bottom: 24px;
-      }
-
-      .subtitle {
-        margin-bottom: 24px;
-      }
-
-      .nav-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px 18px;
-      }
-
-      .main {
-        padding: 28px 24px 54px;
-      }
-
-      .landing {
-        min-height: auto;
-        align-content: start;
-      }
-
-      .image-wrap img {
-        max-height: none;
-        aspect-ratio: 4 / 5;
+      .hero-title {
+        bottom: 12vh;
       }
 
       section {
-        padding-top: 64px;
-      }
-
-      .work-item {
-        grid-template-columns: 1fr;
-        gap: 6px;
+        padding: 96px 38px;
       }
 
       .gallery {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .hero img {
+        object-position: 50% 38%;
+      }
+
+      .hero-title h1 {
+        font-size: clamp(90px, 10vw, 155px);
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <aside class="sidebar">
-      <a class="brand" href="#start">Luisa Banov</a>
-      <div class="subtitle">Künstlerin</div>
+  <header class="topbar" aria-label="Kopfbereich">
+    <a class="brand-small" href="#start">Luisa Banov</a>
 
-      <ul class="nav-list" aria-label="Hauptnavigation">
-        <li><a href="#aktuell">Aktuell</a></li>
-        <li><a href="#arbeiten">Arbeiten</a></li>
-        <li><a href="#malerei">Malerei</a></li>
-        <li><a href="#zeichnung">Zeichnung</a></li>
-        <li><a href="#kurse">Kurse</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#about-contact">About &amp; Contact</a></li>
-      </ul>
-    </aside>
+    <button class="menu-button" type="button" aria-label="Menü öffnen" aria-expanded="false">
+      <span class="menu-lines" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </header>
 
-    <main class="main" id="start">
-      <section class="landing" aria-label="Startseite">
-        <div class="image-wrap">
-          <!-- Hauptbild: bitte in GitHub im Ordner images als hero.jpg speichern -->
-          <img src="images/hero.jpg?v=1" alt="Arbeit von Luisa Banov" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Hauptbild fehlt noch:<br>images/hero.jpg</div>');">
-        </div>
-
-        <div>
-          <h1>Luisa Banov</h1>
-          <p class="intro">Malerei, Zeichnung und künstlerische Projekte. Eine ruhige Portfolioseite mit viel Weißraum, klaren Links und reduzierter Präsentation der Arbeiten.</p>
-        </div>
-      </section>
-
-      <section id="aktuell">
-        <h2>Aktuell</h2>
-        <p>Hier können aktuelle Ausstellungen, neue Arbeiten, offene Ateliers oder Hinweise zu Kursen eingetragen werden.</p>
-        <div class="work-list">
-          <div class="work-item">
-            <strong>Neue Arbeiten</strong>
-            <span>Auswahl aus laufenden künstlerischen Prozessen.</span>
-          </div>
-          <div class="work-item">
-            <strong>Kurse</strong>
-            <span>Informationen zu Workshops und künstlerischer Vermittlung.</span>
-          </div>
-          <div class="work-item">
-            <strong>Kontakt</strong>
-            <span>Anfragen zu Arbeiten, Projekten oder Ausstellungen.</span>
-          </div>
-        </div>
-      </section>
-
-      <section id="arbeiten">
-        <h2>Arbeiten</h2>
-        <p>Die Arbeiten von Luisa Banov bewegen sich zwischen Fläche, Linie und Material. Die Seite bleibt bewusst schlicht, damit die Kunst im Vordergrund steht.</p>
-        <div class="gallery">
-          <figure>
-            <img src="images/arbeit-01.jpg?v=1" alt="Arbeit 1 von Luisa Banov" onerror="this.closest('figure').style.display='none';">
-            <figcaption>Arbeit 1</figcaption>
-          </figure>
-          <figure>
-            <img src="images/arbeit-02.jpg?v=1" alt="Arbeit 2 von Luisa Banov" onerror="this.closest('figure').style.display='none';">
-            <figcaption>Arbeit 2</figcaption>
-          </figure>
-          <figure>
-            <img src="images/arbeit-03.jpg?v=1" alt="Arbeit 3 von Luisa Banov" onerror="this.closest('figure').style.display='none';">
-            <figcaption>Arbeit 3</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section id="malerei">
-        <h2>Malerei</h2>
-        <p>Malereien, Serien und Einzelarbeiten können hier mit kurzen Beschreibungen ergänzt werden.</p>
-      </section>
-
-      <section id="zeichnung">
-        <h2>Zeichnung</h2>
-        <p>Zeichnungen, Skizzen und Arbeiten auf Papier können hier gesammelt werden.</p>
-      </section>
-
-      <section id="kurse">
-        <h2>Kurse</h2>
-        <p>Informationen zu Kunstkursen, Workshops oder VHS-Angeboten können hier eingetragen werden.</p>
-      </section>
-
-      <section id="portfolio">
-        <h2>Portfolio</h2>
-        <p>Hier kann später ein PDF-Portfolio, eine größere Galerie oder eine Auswahl abgeschlossener Projekte verlinkt werden.</p>
-      </section>
-
-      <section id="about-contact">
-        <h2>About &amp; Contact</h2>
-        <p>Luisa Banov arbeitet künstlerisch mit Fläche, Linie und Material. Ihre Arbeiten entstehen aus Beobachtung, Intuition und dem konzentrierten Prozess im Atelier.</p>
-
-        <div class="contact-box">
-          <div><strong>Luisa Banov</strong></div>
-          <div>Hohenbrunn</div>
-          <div><a href="mailto:luisa.banov@gmx.de">luisa.banov@gmx.de</a></div>
-          <div><a href="https://www.luisa-banov.com">www.luisa-banov.com</a></div>
-        </div>
-      </section>
-
-      <div class="impressum">
-        <strong>Impressum</strong><br><br>
-        Luisa Banov<br>
-        Taufkirchner Str. 63<br>
-        85662 Hohenbrunn<br>
-        <a href="mailto:luisa.banov@gmx.de">luisa.banov@gmx.de</a><br>
-        <a href="https://www.luisa-banov.com">www.luisa-banov.com</a><br><br>
-
-        Inhaltlich verantwortlich gemäß § 6 MDStV und § 55 Abs. 2 RStV: Luisa Banov<br><br>
-
-        <strong>Haftungshinweis</strong><br>
-        Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links.
-        Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.<br><br>
-
-        <strong>Bildnachweise</strong><br>
-        Urheber und Bildquelle der verwendeten Bilder: Luisa Banov, sofern nicht anders angegeben.<br><br>
-
-        © Copyright 2021 by Luisa Banov. Alle Rechte vorbehalten.
-      </div>
-    </main>
+  <div class="menu-overlay" aria-hidden="true">
+    <div>
+      <nav aria-label="Hauptnavigation">
+        <a href="#arbeiten">Arbeiten</a>
+        <a href="#malerei">Malerei</a>
+        <a href="#zeichnung">Zeichnung</a>
+        <a href="#kurse">Kurse</a>
+        <a href="#about-contact">Kontakt</a>
+      </nav>
+      <div class="menu-sub">Malerei · Zeichnung · Projekte</div>
+    </div>
   </div>
+
+  <section class="hero" id="start" aria-label="Startseite">
+    <!-- Wichtig: Dieses Bild muss in GitHub im Ordner images als hero.jpg liegen -->
+    <img src="images/hero.jpg?v=7" alt="Luisa Banov im Atelier, Fotografie von oben" />
+
+    <div class="hero-title">
+      <h1>Luisa Banov</h1>
+      <div class="ornament" aria-hidden="true"><span></span></div>
+    </div>
+
+    <div class="scroll-note">Portfolio</div>
+  </section>
+
+  <main class="content">
+    <section id="arbeiten">
+      <h2>Arbeiten</h2>
+      <p>Malerei, Zeichnung und künstlerische Projekte. Die Seite bleibt bewusst ruhig, damit Bild, Material und Atmosphäre im Vordergrund stehen.</p>
+
+      <div class="gallery">
+        <figure>
+          <img src="images/01-raeume-tusche-baumwollstoff-30x20-2021.jpg?v=7" alt="Räume, Tusche auf Baumwollstoff, 30 x 20 cm, 2021" onerror="this.closest('figure').style.display='none';" />
+          <figcaption>Räume · Tusche auf Baumwollstoff · 2021</figcaption>
+        </figure>
+
+        <figure>
+          <img src="images/02-raeume-tusche-papier-70x100-2021.jpg?v=7" alt="Räume, Tusche auf Papier, 70 x 100 cm, 2021" onerror="this.closest('figure').style.display='none';" />
+          <figcaption>Räume · Tusche auf Papier · 2021</figcaption>
+        </figure>
+
+        <figure>
+          <img src="images/03-raum-autolack-spray-wandtapete-40x70-2018.jpg?v=7" alt="Raum, Autolack Spray auf Wandtapete, 40 x 70 cm, 2018" onerror="this.closest('figure').style.display='none';" />
+          <figcaption>Raum · Autolack Spray auf Wandtapete · 2018</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="malerei">
+      <h2>Malerei</h2>
+      <p>Serien, Einzelarbeiten und malerische Prozesse können hier mit kurzen Angaben zu Technik, Format und Jahr ergänzt werden.</p>
+    </section>
+
+    <section id="zeichnung">
+      <h2>Zeichnung</h2>
+      <p>Zeichnungen, Skizzen und Arbeiten auf Papier können hier als ruhige Auswahl gesammelt werden.</p>
+    </section>
+
+    <section id="kurse">
+      <h2>Kurse</h2>
+      <p>Informationen zu Kunstkursen, Workshops oder VHS-Angeboten können hier später eingetragen werden.</p>
+    </section>
+
+    <section id="about-contact">
+      <h2>About &amp; Contact</h2>
+      <p>Luisa Banov arbeitet künstlerisch mit Fläche, Linie und Material. Ihre Arbeiten entstehen aus Beobachtung, Intuition und dem konzentrierten Prozess im Atelier.</p>
+
+      <div class="contact-box">
+        <div><strong>Luisa Banov</strong></div>
+        <div>Malerei · Zeichnung · Projekte</div>
+        <div>Kontaktangaben können hier ergänzt werden.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © Luisa Banov
+  </footer>
+
+  <script>
+    const button = document.querySelector('.menu-button');
+    const overlay = document.querySelector('.menu-overlay');
+    const links = document.querySelectorAll('.menu-overlay a');
+
+    function closeMenu() {
+      document.body.classList.remove('menu-open');
+      button.setAttribute('aria-expanded', 'false');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function openMenu() {
+      document.body.classList.add('menu-open');
+      button.setAttribute('aria-expanded', 'true');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    button.addEventListener('click', () => {
+      if (document.body.classList.contains('menu-open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    links.forEach(link => link.addEventListener('click', closeMenu));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+  </script>
 </body>
 </html>
